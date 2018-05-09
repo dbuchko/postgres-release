@@ -58,6 +58,10 @@ function main() {
   chmod -R 600 ${PG_CERTS_DIR}/*
   chown -R vcap:vcap ${PG_CERTS_DIR}/*
 
+  if [ "${ENABLE_BBR}" == "1" ]; then
+    local BBR_DIR=${JOB_DIR}/bin/bbr
+    mv ${BBR_DIR}/backup_disabled ${BBR_DIR}/backup
+  fi
   sysctl -w "kernel.shmmax=284934144"
 }
 

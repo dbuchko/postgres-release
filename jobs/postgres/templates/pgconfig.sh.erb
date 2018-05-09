@@ -54,3 +54,8 @@ if [[ -n "${LD_LIBRARY_PATH:-}" ]]; then
 else
   LD_LIBRARY_PATH="${PACKAGE_DIR}/lib"
 fi
+<% if !p("bbr.enabled").nil? && p("bbr.enabled") %>
+ENABLE_BBR=1
+<% else %>
+ENABLE_BBR=0
+<% end %>

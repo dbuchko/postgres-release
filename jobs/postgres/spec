@@ -24,6 +24,7 @@ templates:
   hooks/postgres-pre-stop.sh.erb: bin/hooks/postgres-pre-stop.sh
   hooks/postgres-post-start.sh.erb: bin/hooks/postgres-post-start.sh
   hooks/postgres-post-stop.sh.erb: bin/hooks/postgres-post-stop.sh
+  bbr/backup.sh.erb: bin/bbr/backup_disabled
 
 packages:
   - postgres-common
@@ -130,3 +131,6 @@ properties:
   janitor.timeout:
     description: "Time limit in seconds for the janitor script. By default it's set to 0 that means no time limit"
     default: 0
+  bbr.enabled:
+    description: "Enable postgres backup through bbr"
+    default: false
