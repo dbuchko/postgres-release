@@ -1,8 +1,10 @@
 package deploy_test
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/cloudfoundry/postgres-release/src/acceptance-tests/testing/helpers"
 
@@ -84,6 +86,10 @@ var _ = Describe("Backup and restore a deployment", func() {
 			cmd = exec.Command("bbr", "deployment", "--target", configParams.Bosh.Target, "--username", configParams.Bosh.Username, "--deployment", deployHelper.GetDeploymentName(), "backup")
 			err = cmd.Run()
 			Expect(err).NotTo(HaveOccurred(), "Check the bbr logfile bbr-TIMESTAMP.err.log for why this has failed")
+			tarBackupFile := fmt.Sprintf("%s/%s*/postgres-0-postgres.tar", tempDir, deployHelper.GetDeploymentName())
+			files, err := filepath.Glob(tarBackupFile)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(files).NotTo(BeEmpty())
 		})
 	})
 })

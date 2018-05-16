@@ -1,3 +1,5 @@
-#!/bin/bash
-BBR_ARTIFACT_FILE_PATH="${BBR_ARTIFACT_DIRECTORY}/postgres"
-echo "TODO" > $BBR_ARTIFACT_FILE_PATH
+#!/bin/bash -e
+source /var/vcap/jobs/postgres/bin/pgconfig.sh
+
+BBR_ARTIFACT_FILE_PATH="${BBR_ARTIFACT_DIRECTORY}/postgres.sql"
+${PACKAGE_DIR}/bin/pg_dumpall --username vcap --port $PORT --clean --if-exists --lock-wait-timeout=5min --verbose > $BBR_ARTIFACT_FILE_PATH
